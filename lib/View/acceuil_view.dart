@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yomapp/View/Widget/alphabet.dart';
 import 'package:onboarding/onboarding.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PageAcceuil extends StatefulWidget {
   const PageAcceuil({super.key});
@@ -19,6 +20,32 @@ class _PageAcceuilState extends State<PageAcceuil> {
     PageModel(widget: const Alphabet(sound: "N")),
   ];
   late int index = 0;
+  bool toastShow = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Swipe left or right to change page'),
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 10,
+          behavior: SnackBarBehavior.floating,
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +126,8 @@ class _PageAcceuilState extends State<PageAcceuil> {
                             itemCount: onBoardingList.length,
                             itemBuilder: (context, index) {
                               if (index < 0) {
-                                return onBoardingList[onBoardingList.length - 1].widget;
+                                return onBoardingList[onBoardingList.length - 1]
+                                    .widget;
                               } else if (index > onBoardingList.length - 1) {
                                 return onBoardingList[0].widget;
                               } else {
@@ -117,50 +145,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
                         height: 12,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.circle,
-                              color: index == 0
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                              size: 10,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: index == 1
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                              size: 10,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: index == 2
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                              size: 10,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: index == 3
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                              size: 10,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: index == 4
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                              size: 10,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: index == 5
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                              size: 10,
-                            ),
-                          ],
+                          children: _buildPageIndicator(),
                         ),
                       ),
                     ],
@@ -168,5 +153,19 @@ class _PageAcceuilState extends State<PageAcceuil> {
             ],
           )),
     );
+  }
+
+  List<Widget> _buildPageIndicator() {
+    List<Widget> list = [];
+    for (int i = 0; i < onBoardingList.length; i++) {
+      list.add(
+        Icon(
+          Icons.circle,
+          color: index == i ? Theme.of(context).primaryColor : Colors.grey,
+          size: 10,
+        ),
+      );
+    }
+    return list;
   }
 }

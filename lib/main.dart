@@ -15,4 +15,3 @@ void main() {
     home: const PageAcceuil(),
   ));
 }
-
