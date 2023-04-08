@@ -83,8 +83,8 @@ class _PageAcceuilState extends State<PageAcceuil> {
               ),
               ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
+                    topLeft: Radius.circular(45),
+                    topRight: Radius.circular(45),
                   ),
                   child: Column(
                     children: [
