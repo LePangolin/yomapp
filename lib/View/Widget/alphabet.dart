@@ -82,7 +82,7 @@ class _AlphabetState extends State<Alphabet> {
       i = 1;
       max = alphabet.length > 7 ? 7 : alphabet.length;
     } else {
-      i = 5;
+      i = 7;
       max = alphabet.length;
     }
     for (i; i < max; i++) {
