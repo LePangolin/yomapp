@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:yomapp/Helpers/providers/test_provider.dart';
+import 'package:yomapp/View/score_view.dart';
 class EasyTest extends StatefulWidget {
   const EasyTest({super.key});
 
@@ -8,6 +9,10 @@ class EasyTest extends StatefulWidget {
 }
 
 class _EasyTestState extends State<EasyTest> {
+  int number = 1;
+  Map<String, dynamic> test = TestProvider().easyTestGenerator();
+  int score = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +22,9 @@ class _EasyTestState extends State<EasyTest> {
           child: Container(
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
-            child: const Text(
-              "Question 1/10",
-              style: TextStyle(
+            child: Text(
+              "Question $number/10",
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -40,12 +45,12 @@ class _EasyTestState extends State<EasyTest> {
                 height: 250,
                 width: 300,
                 child: Column(
-                  children:  [
+                  children: [
                     const SizedBox(
                       height: 50,
                     ),
                     Text(
-                      "Question place",
+                      test["question"],
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 25,
@@ -56,7 +61,7 @@ class _EasyTestState extends State<EasyTest> {
                       height: 50,
                     ),
                     Text(
-                      "エ",
+                      test["sound"],
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 60,
@@ -68,107 +73,140 @@ class _EasyTestState extends State<EasyTest> {
           ),
         )),
         Container(
-          margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.19),
+          margin:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.19),
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+                topLeft: Radius.circular(25), topRight: Radius.circular(25)),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.274,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top:5, left: 7),
-                    child: Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
+                height: MediaQuery.of(context).size.height * 0.274,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, left: 7),
+                      child: Row(children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              confirmAnswer(test["answers"][0]);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Theme.of(context).primaryColor,
-                              minimumSize: Size(MediaQuery.of(context).size.width *0.48, MediaQuery.of(context).size.height *0.13),
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.48,
+                                  MediaQuery.of(context).size.height * 0.13),
                               shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                )
-                              ),
+                                  borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                              )),
                               side: BorderSide(
                                 color: Theme.of(context).primaryColor,
                                 width: 2,
                               ),
                             ),
-                            child: const Text("Reponse 1"),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
+                            child: Text(
+                              test["answers"][0],
+                              style: const TextStyle(fontSize: 30),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              confirmAnswer(test["answers"][1]);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Theme.of(context).primaryColor,
-                              minimumSize: Size(MediaQuery.of(context).size.width *0.48, MediaQuery.of(context).size.height *0.13),
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.48,
+                                  MediaQuery.of(context).size.height * 0.13),
                               shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                )
-                              ),
+                                  borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20),
+                              )),
                               side: BorderSide(
                                 color: Theme.of(context).primaryColor,
                                 width: 2,
                               ),
                             ),
-                            child: const Text("Reponse 2"),
-                          ),
-                        ]),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 7),
-                    child: Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
+                            child: Text(
+                              test["answers"][1],
+                              style: const TextStyle(fontSize: 30),
+                            )),
+                      ]),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 7),
+                      child: Row(children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              confirmAnswer(test["answers"][2]);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Theme.of(context).primaryColor,
-                              minimumSize: Size(MediaQuery.of(context).size.width *0.48, MediaQuery.of(context).size.height *0.13),
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.48,
+                                  MediaQuery.of(context).size.height * 0.13),
                               shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(20)
-                                )
-                              ),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20))),
                               side: BorderSide(
                                 color: Theme.of(context).primaryColor,
                                 width: 2,
                               ),
                             ),
-                            child: const Text("Reponse 3"),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
+                            child: Text(
+                              test["answers"][2],
+                              style: const TextStyle(fontSize: 30),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              confirmAnswer(test["answers"][3]);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Theme.of(context).primaryColor,
-                              minimumSize: Size(MediaQuery.of(context).size.width *0.48, MediaQuery.of(context).size.height *0.13),
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.48,
+                                  MediaQuery.of(context).size.height * 0.13),
                               shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(20)
-                                )
-                              ),
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(20))),
                               side: BorderSide(
                                 color: Theme.of(context).primaryColor,
                                 width: 2,
                               ),
                             ),
-                            child: const Text("Reponse 4"),
-                          ),
-                        ]),
-                  ),
-                ],
-            )),
+                            child: Text(
+                              test["answers"][3],
+                              style: const TextStyle(fontSize: 30),
+                            )),
+                      ]),
+                    ),
+                  ],
+                )),
           ),
         )
       ],
     ));
+  }
+
+  void confirmAnswer(String answer) {
+    if (number == 10) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ScoreView(score: score)),
+      );
+    } else {
+      setState(() {
+        number++;
+        test = TestProvider().easyTestGenerator();
+        if (answer == test["correctAnswer"]) {
+          score++;
+        }
+      });
+    }
   }
 }
