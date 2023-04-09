@@ -5,7 +5,9 @@ class Alphabet extends StatefulWidget {
 
   final String sound;
 
-  const Alphabet({super.key, required this.sound});
+  final String alphabet;
+
+  const Alphabet({super.key, required this.sound, required this.alphabet});
 
 
   @override
@@ -17,7 +19,18 @@ class _AlphabetState extends State<Alphabet> {
   
   @override
   Widget build(BuildContext context) {
-    Map<String, String> alphabet = AlphabetEnum.getEnum(widget.sound);
+    Map<String, String> alphabet = AlphabetEnum.getEnumHiragana(widget.sound);
+    switch (widget.alphabet) {
+      case "Hiragana":
+        alphabet = AlphabetEnum.getEnumHiragana(widget.sound);
+        break;
+      case "Katakana":
+        alphabet = AlphabetEnum.getEnumKatakana(widget.sound);
+        break;
+      default:
+        alphabet = AlphabetEnum.getEnumHiragana(widget.sound);
+    }
+    
     String son = alphabet['Son']!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,

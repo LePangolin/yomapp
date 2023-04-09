@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yomapp/View/Widget/alphabet.dart';
 import 'package:onboarding/onboarding.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:yomapp/Helpers/Enum/description_enum.dart';
 
 class PageAcceuil extends StatefulWidget {
   const PageAcceuil({super.key});
@@ -11,16 +11,10 @@ class PageAcceuil extends StatefulWidget {
 }
 
 class _PageAcceuilState extends State<PageAcceuil> {
-  final onBoardingList = [
-    PageModel(widget: const Alphabet(sound: "A")),
-    PageModel(widget: const Alphabet(sound: "I")),
-    PageModel(widget: const Alphabet(sound: "U")),
-    PageModel(widget: const Alphabet(sound: "E")),
-    PageModel(widget: const Alphabet(sound: "O")),
-    PageModel(widget: const Alphabet(sound: "N")),
-  ];
   late int index = 0;
   bool toastShow = false;
+  String alphabet = "Hiragana";
+  String description =  DescriptionEnum.hiragana;
 
   @override
   void initState() {
@@ -48,6 +42,15 @@ class _PageAcceuilState extends State<PageAcceuil> {
 
   @override
   Widget build(BuildContext context) {
+
+    final onBoardingList = [
+      PageModel(widget: Alphabet(sound: "A", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "I", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "U", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "E", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "O", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "N", alphabet: alphabet)),
+    ];
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
@@ -80,29 +83,63 @@ class _PageAcceuilState extends State<PageAcceuil> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  if (alphabet == "Hiragana") {
+                                    alphabet = "Katakana";
+                                    description = DescriptionEnum.katakana;
+                                  } else {
+                                    alphabet = "Hiragana";
+                                    description = DescriptionEnum.hiragana;
+                                  }
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 foregroundColor: Theme.of(context).primaryColor,
                                 shape: const CircleBorder(),
                               ),
                               child: const Icon(Icons.arrow_back_outlined)),
-                          const Text(
-                            'Hiragana',
-                            style: TextStyle(
+                          Text(
+                            alphabet,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 30,
                             ),
                           ),
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  if (alphabet == "Hiragana") {
+                                    alphabet = "Katakana";
+                                    description = DescriptionEnum.katakana;
+                                  } else {
+                                    alphabet = "Hiragana";
+                                    description = DescriptionEnum.hiragana;
+                                  }
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 foregroundColor: Theme.of(context).primaryColor,
                                 shape: const CircleBorder(),
                               ),
                               child: const Icon(Icons.arrow_forward_outlined)),
+                          
                         ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Center(
+                        child: Text(
+                          description,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -145,7 +182,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
                         height: 12,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: _buildPageIndicator(),
+                          children: _buildPageIndicator(onBoardingList),
                         ),
                       ),
                     ],
@@ -155,7 +192,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
     );
   }
 
-  List<Widget> _buildPageIndicator() {
+  List<Widget> _buildPageIndicator(List<PageModel> onBoardingList) {
     List<Widget> list = [];
     for (int i = 0; i < onBoardingList.length; i++) {
       list.add(

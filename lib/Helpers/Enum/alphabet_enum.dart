@@ -70,8 +70,96 @@ class AlphabetEnum{
   };
 
 
+  final Map<String, String> _KatakanaA = {
+    'Son': 'A',
+    'a': 'ア',
+    'ka': 'カ',
+    'sa': 'サ',
+    'ta': 'タ',
+    'na': 'ナ',
+    'ha': 'ハ',
+    'ma': 'マ',
+    'ya': 'ヤ',
+    'ra': 'ラ',
+    'wa': 'ワ',
+  };
 
-  static Map<String, String> getEnum(String alphabet) {
+  final Map<String, String> _KatakanaI = {
+    'Son': 'I',
+    'i': 'イ',
+    'ki': 'キ',
+    'shi': 'シ',
+    'chi': 'チ',
+    'ni': 'ニ',
+    'hi': 'ヒ',
+    'mi': 'ミ',
+    'ri': 'リ',
+  };
+
+  final Map<String, String> _KatakanaU = {
+    'Son': 'U',
+    'u': 'ウ',
+    'ku': 'ク',
+    'su': 'ス',
+    'tsu': 'ツ',
+    'nu': 'ヌ',
+    'fu': 'フ',
+    'mu': 'ム',
+    'yu': 'ユ',
+    'ru': 'ル',
+  };
+
+  final Map<String, String> _KatakanaE = {
+    'Son': 'E',
+    'e': 'エ',
+    'ke': 'ケ',
+    'se': 'セ',
+    'te': 'テ',
+    'ne': 'ネ',
+    'he': 'ヘ',
+    'me': 'メ',
+    're': 'レ',
+  };
+
+  final Map<String, String> _KatakanaO = {
+    'Son': 'O',
+    'o': 'オ',
+    'ko': 'コ',
+    'so': 'ソ',
+    'to': 'ト',
+    'no': 'ノ',
+    'ho': 'ホ',
+    'mo': 'モ',
+    'yo': 'ヨ',
+    'ro': 'ロ',
+    'wo': 'ヲ',
+  };
+
+  final Map<String, String> _KatakanaN = {
+    'Son': 'N',
+    'n': 'ン',
+  };
+
+  static Map<String, String> getEnumKatakana(String alphabet) {
+    switch (alphabet) {
+      case 'A':
+        return AlphabetEnum()._KatakanaA;
+      case 'I':
+        return AlphabetEnum()._KatakanaI;
+      case 'U':
+        return AlphabetEnum()._KatakanaU;
+      case 'E':
+        return AlphabetEnum()._KatakanaE;
+      case 'O':
+        return AlphabetEnum()._KatakanaO;
+      case 'N':
+        return AlphabetEnum()._KatakanaN;
+      default:
+        return AlphabetEnum()._KatakanaA;
+    }
+  }
+
+  static Map<String, String> getEnumHiragana(String alphabet) {
     switch (alphabet) {
       case 'A':
         return AlphabetEnum()._hiraganaA;
