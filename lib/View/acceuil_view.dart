@@ -200,7 +200,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
               );
             },
             backgroundColor: Theme.of(context).primaryColor,
-            child: const Icon(Icons.assignment),
+            child: const Icon(Icons.assignment, color: Colors.white),
           ),
     );
   }
