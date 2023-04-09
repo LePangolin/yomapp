@@ -51,6 +51,7 @@ class _EasyTestState extends State<EasyTest> {
                     ),
                     Text(
                       test["question"],
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 25,
@@ -61,10 +62,10 @@ class _EasyTestState extends State<EasyTest> {
                       height: 50,
                     ),
                     Text(
-                      test["sound"],
+                      test["sound"] ?? test['letter'],
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
-                        fontSize: 60,
+                        fontSize: test["sound"] != null ? 60 : 40,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

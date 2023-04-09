@@ -45,7 +45,7 @@ class _AlphabetState extends State<Alphabet> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    "Son : $son",
+                    "Syllabe en : $son",
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 30,

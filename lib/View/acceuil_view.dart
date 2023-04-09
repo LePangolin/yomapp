@@ -156,7 +156,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
                       Container(
                           height: MediaQuery.of(context).size.height * 0.683,
                           width: MediaQuery.of(context).size.width,
-                          color: const Color(0xFFFEF9EB),
+                          color: Colors.white,
                           child: PageView.builder(
                             physics: const ScrollPhysics(
                               parent: BouncingScrollPhysics(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:yomapp/Helpers/Enum/alphabet_enum.dart';
 
 class TestProvider extends ChangeNotifier {
+
   Map<String, String> _randomLetter() {
     List<String> sounds = ["A", "I", "U", "E", "O", "N"];
     int random = Random().nextInt(sounds.length);
@@ -21,33 +22,90 @@ class TestProvider extends ChangeNotifier {
     return {randomKey: randomValue};
   }
 
+  String _alphabetFromSound(String sound) {
+    bool isHiragana = false;
+    Map<String, String> alphabet = AlphabetEnum.getEnumHiragana(sound);
+    for (int i = 0; i < alphabet.length; i++) {
+      if (alphabet.values.elementAt(i) == sound) {
+        isHiragana = true;
+      }
+    }
+    if (isHiragana) {
+      return "Hiragana";
+    } else {
+      return "Katakana";
+    }
+  }
+
   Map<String, dynamic> _easyTestGenerator() {
     List<String> questions = [
-      "De quel son s'agit-il ?",
+      "De quel syllabe s'agit-il ?",
+      "A quelle charactère correspond cette syllabe ?",
+      "De quelle alphabet s'agit-il ?"
     ];
     int random = Random().nextInt(questions.length);
     String question = questions[random];
     Map<String, String> letterToFound = _randomLetter();
-    // if (question == "De quel son s'agit-il ?") {
-    List<String> answers = [];
-    for (int i = 0; i < 3; i++) {
-      Map<String, String> letter = _randomLetter();
-      answers.add(letter.keys.first);
+    if (question == questions[0]) {
+      List<String> answers = [];
+      for (int i = 0; i < 3; i++) {
+        Map<String, String> letter = _randomLetter();
+        if (letter.keys.first == letterToFound.keys.first) {
+          i--;
+        } else if (answers.contains(letter.keys.first)) {
+          i--;
+        } else {
+          answers.add(letter.keys.first);
+        }
+      }
+      answers.add(letterToFound.keys.first);
+      answers.shuffle();
+      return {
+        "question": question,
+        "sound": letterToFound.values.first,
+        "answers": answers,
+        "correctAnswer": letterToFound.keys.first,
+      };
+    }else if (question == questions[1]) {
+      List<String> answers = [];
+      for (int i = 0; i < 3; i++) {
+        Map<String, String> letter = _randomLetter();
+        if (letter.values.first == letterToFound.values.first) {
+          i--;
+        } else if (answers.contains(letter.values.first)) {
+          i--;
+        } else {
+          answers.add(letter.values.first);
+        }
+      }
+      answers.add(letterToFound.values.first);
+      answers.shuffle();
+      return {
+        "question": question,
+        "letter": letterToFound.keys.first,
+        "answers": answers,
+        "correctAnswer": letterToFound.values.first,
+      };
+    } else if(question == questions[2]){
+      String alphabet = _alphabetFromSound(letterToFound.values.first);
+      List<String> answers = [
+        "Hiragana",
+        "Katakana",
+        "Kanji",
+        "Romaji"
+      ];
+      return {
+        "question": question,
+        "sound": letterToFound.values.first,
+        "answers": answers,
+        "correctAnswer": alphabet,
+      };
+    } else {
+      return {};
     }
-    answers.add(letterToFound.keys.first);
-    answers.shuffle();
-    return {
-      "question": question,
-      "sound": letterToFound.values.first,
-      "answers": answers,
-      "correctAnswer": letterToFound.keys.first,
-    };
-    // }
   }
 
   Map<String, dynamic> easyTestGenerator() {
     return _easyTestGenerator();
   }
 }
-
-
