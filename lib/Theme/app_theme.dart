@@ -5,7 +5,7 @@ class AppTheme {
 
   static const Color _lightPrimaryColor = Colors.red;
   static const Color _lightSecondaryColor = Color(0xFFFEF9EB);
-  static const Color _lightAccentColor = Color(0xFFFFC107);
+  static const Color _lightAccentColor = Colors.red;
   static const Color _lightTextColor = Color(0xFF212121);
 
   static const Color _darkPrimaryColor = Color(0xFF121212);
