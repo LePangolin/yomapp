@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yomapp/View/Widget/alphabet.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:yomapp/Helpers/Enum/description_enum.dart';
+import 'package:yomapp/View/menu_test_view.dart';
 
 class PageAcceuil extends StatefulWidget {
   const PageAcceuil({super.key});
@@ -189,6 +190,18 @@ class _PageAcceuilState extends State<PageAcceuil> {
                   ))
             ],
           )),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MenuTest()
+                ),
+              );
+            },
+            backgroundColor: Theme.of(context).primaryColor,
+            child: const Icon(Icons.assignment),
+          ),
     );
   }
 
