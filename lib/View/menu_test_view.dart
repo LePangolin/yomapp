@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yomapp/View/test_easy_view.dart';
 
 class MenuTest extends StatefulWidget {
   const MenuTest({super.key});
@@ -51,7 +52,14 @@ class _MenuTestState extends State<MenuTest> {
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.05),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EasyTest(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
