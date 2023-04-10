@@ -3,6 +3,7 @@ import 'package:yomapp/View/Widget/alphabet.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:yomapp/Helpers/Enum/description_enum.dart';
 import 'package:yomapp/View/menu_test_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageAcceuil extends StatefulWidget {
   const PageAcceuil({super.key});
@@ -15,35 +16,43 @@ class _PageAcceuilState extends State<PageAcceuil> {
   late int index = 0;
   bool toastShow = false;
   String alphabet = "Hiragana";
-  String description =  DescriptionEnum.hiragana;
+  String description = DescriptionEnum.hiragana;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Swipe left or right to change page'),
-          duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+    _showSnackBar();
+  }
+
+  void _showSnackBar() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool toastShow = prefs.getBool('toastShow') ?? true;
+    if (toastShow) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Swipe left or right to change page'),
+            duration: const Duration(seconds: 3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            action: SnackBarAction(
+              label: 'OK',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
           ),
-          elevation: 10,
-          behavior: SnackBarBehavior.floating,
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            },
-          ),
-        ),
-      );
-    });
+        );
+      });
+      prefs.setBool('toastShow', false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
     final onBoardingList = [
       PageModel(widget: Alphabet(sound: "A", alphabet: alphabet)),
       PageModel(widget: Alphabet(sound: "I", alphabet: alphabet)),
@@ -131,7 +140,6 @@ class _PageAcceuilState extends State<PageAcceuil> {
                                 shape: const CircleBorder(),
                               ),
                               child: const Icon(Icons.arrow_forward_outlined)),
-                          
                         ],
                       ),
                     ),
@@ -184,7 +192,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
                             },
                           )),
                       Container(
-                        color: const Color(0xFFFEF9EB),
+                        color: Colors.white,
                         height: 12,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -195,18 +203,16 @@ class _PageAcceuilState extends State<PageAcceuil> {
                   ))
             ],
           )),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MenuTest()
-                ),
-              );
-            },
-            backgroundColor: Theme.of(context).primaryColor,
-            child: const Icon(Icons.assignment, color: Colors.white),
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MenuTest()),
+          );
+        },
+        backgroundColor: Theme.of(context).primaryColor,
+        child: const Icon(Icons.assignment, color: Colors.white),
+      ),
     );
   }
 
