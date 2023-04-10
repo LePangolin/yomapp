@@ -50,6 +50,11 @@ class _PageAcceuilState extends State<PageAcceuil> {
       PageModel(widget: Alphabet(sound: "U", alphabet: alphabet)),
       PageModel(widget: Alphabet(sound: "E", alphabet: alphabet)),
       PageModel(widget: Alphabet(sound: "O", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "G", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "Z", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "D", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "B", alphabet: alphabet)),
+      PageModel(widget: Alphabet(sound: "P", alphabet: alphabet)),
       PageModel(widget: Alphabet(sound: "N", alphabet: alphabet)),
     ];
     return Scaffold(

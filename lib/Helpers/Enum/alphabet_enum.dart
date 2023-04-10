@@ -1,4 +1,4 @@
-class AlphabetEnum{
+class AlphabetEnum {
   final Map<String, String> _hiraganaA = {
     'Son': 'A',
     'a': 'あ',
@@ -64,11 +64,55 @@ class AlphabetEnum{
     'wo': 'を',
   };
 
+  final Map<String, String> _hiraganaG = {
+    'Son': 'G',
+    'ga': 'が',
+    'gi': 'ぎ',
+    'gu': 'ぐ',
+    'ge': 'げ',
+    'go': 'ご',
+  };
+
+  final Map<String, String> _hiraganaZ = {
+    'Son': 'Z',
+    'za': 'ざ',
+    'ji': 'じ',
+    'zu': 'ず',
+    'ze': 'ぜ',
+    'zo': 'ぞ',
+  };
+
+  final Map<String, String> _hiraganaD = {
+    'Son': 'D',
+    'da': 'だ',
+    'ji': 'ぢ',
+    'zu': 'づ',
+    'de': 'で',
+    'do': 'ど',
+  };
+
+  final Map<String, String> _hiraganaB = {
+    'Son': 'B',
+    'ba': 'ば',
+    'bi': 'び',
+    'bu': 'ぶ',
+    'be': 'べ',
+    'bo': 'ぼ',
+  };
+
+  final Map<String, String> _hiraganaP = {
+    'Son': 'P',
+    'pa': 'ぱ',
+    'pi': 'ぴ',
+    'pu': 'ぷ',
+    'pe': 'ぺ',
+    'po': 'ぽ',
+  };
+
   final Map<String, String> _hiraganaN = {
     'Son': 'N',
     'n': 'ん',
   };
-
 
   final Map<String, String> _KatakanaA = {
     'Son': 'A',
@@ -135,6 +179,51 @@ class AlphabetEnum{
     'wo': 'ヲ',
   };
 
+  final Map<String, String> _KatakanaG = {
+    'Son': 'G',
+    'ga': 'ガ',
+    'gi': 'ギ',
+    'gu': 'グ',
+    'ge': 'ゲ',
+    'go': 'ゴ',
+  };
+
+  final Map<String, String> _KatakanaZ = {
+    'Son': 'Z',
+    'za': 'ザ',
+    'ji': 'ジ',
+    'zu': 'ズ',
+    'ze': 'ゼ',
+    'zo': 'ゾ',
+  };
+
+  final Map<String, String> _KatakanaD = {
+    'Son': 'D',
+    'da': 'ダ',
+    'ji': 'ヂ',
+    'zu': 'ヅ',
+    'de': 'デ',
+    'do': 'ド',
+  };
+
+  final Map<String, String> _KatakanaB = {
+    'Son': 'B',
+    'ba': 'バ',
+    'bi': 'ビ',
+    'bu': 'ブ',
+    'be': 'ベ',
+    'bo': 'ボ',
+  };
+
+  final Map<String, String> _KatakanaP = {
+    'Son': 'P',
+    'pa': 'パ',
+    'pi': 'ピ',
+    'pu': 'プ',
+    'pe': 'ペ',
+    'po': 'ポ',
+  };
+
   final Map<String, String> _KatakanaN = {
     'Son': 'N',
     'n': 'ン',
@@ -154,6 +243,16 @@ class AlphabetEnum{
         return AlphabetEnum()._KatakanaO;
       case 'N':
         return AlphabetEnum()._KatakanaN;
+      case 'G':
+        return AlphabetEnum()._KatakanaG;
+      case 'Z':
+        return AlphabetEnum()._KatakanaZ;
+      case 'D':
+        return AlphabetEnum()._KatakanaD;
+      case 'B':
+        return AlphabetEnum()._KatakanaB;
+      case 'P':
+        return AlphabetEnum()._KatakanaP;
       default:
         return AlphabetEnum()._KatakanaA;
     }
@@ -173,10 +272,18 @@ class AlphabetEnum{
         return AlphabetEnum()._hiraganaO;
       case 'N':
         return AlphabetEnum()._hiraganaN;
+      case 'G':
+        return AlphabetEnum()._hiraganaG;
+      case 'Z':
+        return AlphabetEnum()._hiraganaZ;
+      case 'D':
+        return AlphabetEnum()._hiraganaD;
+      case 'B':
+        return AlphabetEnum()._hiraganaB;
+      case 'P':
+        return AlphabetEnum()._hiraganaP;
       default:
         return AlphabetEnum()._hiraganaA;
     }
   }
-
 }
-

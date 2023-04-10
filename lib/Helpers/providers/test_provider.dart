@@ -5,7 +5,7 @@ import 'package:yomapp/Helpers/Enum/alphabet_enum.dart';
 class TestProvider extends ChangeNotifier {
 
   Map<String, String> _randomLetter() {
-    List<String> sounds = ["A", "I", "U", "E", "O", "N"];
+    List<String> sounds = ["A", "I", "U", "E", "O", "N", "G", "Z", "D", "B", "P"];
     int random = Random().nextInt(sounds.length);
     String randomSound = sounds[random];
     random = Random().nextInt(2);
@@ -24,9 +24,9 @@ class TestProvider extends ChangeNotifier {
 
   String _alphabetFromSound(String sound) {
     bool isHiragana = false;
-    Map<String, String> alphabet = AlphabetEnum.getEnumHiragana(sound);
-    for (int i = 0; i < alphabet.length; i++) {
-      if (alphabet.values.elementAt(i) == sound) {
+    List<String> sounds = ["A", "I", "U", "E", "O", "N", "G", "Z", "D", "B", "P"];
+    for (int i = 0; i < sounds.length; i++) {
+      if (AlphabetEnum.getEnumHiragana(sounds[i]).containsValue(sound)) {
         isHiragana = true;
       }
     }
@@ -74,6 +74,8 @@ class TestProvider extends ChangeNotifier {
           i--;
         } else if (answers.contains(letter.values.first)) {
           i--;
+        } else if (letter.keys.first == letterToFound.keys.first) {
+          i--;
         } else {
           answers.add(letter.values.first);
         }
@@ -94,6 +96,7 @@ class TestProvider extends ChangeNotifier {
         "Kanji",
         "Romaji"
       ];
+      answers.shuffle();
       return {
         "question": question,
         "sound": letterToFound.values.first,
