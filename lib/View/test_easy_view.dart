@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:yomapp/Helpers/providers/test_provider.dart';
 import 'package:yomapp/View/score_view.dart';
+
 class EasyTest extends StatefulWidget {
   const EasyTest({super.key});
 
@@ -12,6 +15,7 @@ class _EasyTestState extends State<EasyTest> {
   int number = 1;
   Map<String, dynamic> test = TestProvider().easyTestGenerator();
   int score = 0;
+  bool reveal = false;
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +98,8 @@ class _EasyTestState extends State<EasyTest> {
                               confirmAnswer(test["answers"][0]);
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: reveal ? getColor(test["answers"][0]) : Colors.white,
+                              foregroundColor: reveal ? Colors.white : Theme.of(context).primaryColor,
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width * 0.48,
                                   MediaQuery.of(context).size.height * 0.13),
@@ -117,8 +121,8 @@ class _EasyTestState extends State<EasyTest> {
                               confirmAnswer(test["answers"][1]);
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: reveal ? getColor(test["answers"][1]) : Colors.white,
+                              foregroundColor: reveal ? Colors.white : Theme.of(context).primaryColor,
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width * 0.48,
                                   MediaQuery.of(context).size.height * 0.13),
@@ -145,8 +149,8 @@ class _EasyTestState extends State<EasyTest> {
                               confirmAnswer(test["answers"][2]);
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: reveal ? getColor(test["answers"][2]) : Colors.white,
+                              foregroundColor: reveal ? Colors.white : Theme.of(context).primaryColor,
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width * 0.48,
                                   MediaQuery.of(context).size.height * 0.13),
@@ -167,8 +171,8 @@ class _EasyTestState extends State<EasyTest> {
                               confirmAnswer(test["answers"][3]);
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: reveal ? getColor(test["answers"][3]) : Colors.white,
+                              foregroundColor: reveal ? Colors.white : Theme.of(context).primaryColor,
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width * 0.48,
                                   MediaQuery.of(context).size.height * 0.13),
@@ -195,19 +199,44 @@ class _EasyTestState extends State<EasyTest> {
   }
 
   void confirmAnswer(String answer) {
+    if(reveal) return;
     if (number == 10) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ScoreView(score: score)),
-      );
+      if (answer == test["correctAnswer"]) {
+        score++;
+      }
+      setState(() {
+        reveal = true;
+      });
+      Timer(const Duration(seconds: 1), () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ScoreView(score: score)
+            )
+        );
+      });
     } else {
       setState(() {
         number++;
-        test = TestProvider().easyTestGenerator();
         if (answer == test["correctAnswer"]) {
           score++;
         }
+        reveal = true;
+        Timer(const Duration(seconds: 1), () {
+          setState(() {
+            reveal = false;
+            test = TestProvider().easyTestGenerator();
+          });
+        });
       });
+    }
+  }
+
+  Color getColor(String answer) {
+    if (answer == test["correctAnswer"]) {
+      return Colors.green;
+    } else {
+      return Colors.red;
     }
   }
 }
