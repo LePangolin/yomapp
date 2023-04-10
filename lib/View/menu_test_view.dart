@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yomapp/View/test_easy_view.dart';
 import 'package:yomapp/View/acceuil_view.dart';
+import 'package:yomapp/View/test_medium_view.dart';
 
 class MenuTest extends StatefulWidget {
   const MenuTest({super.key});
@@ -101,25 +102,15 @@ class _MenuTestState extends State<MenuTest> {
                     top: MediaQuery.of(context).size.height * 0.05),
                 child: ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        elevation: 6.0,
-                        backgroundColor: Colors.white,
-                        behavior: SnackBarBehavior.floating,
-                        content:
-                            Text("Cette difficulté n'est pas encore disponible",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                )),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MediumTest(),
                       ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey,
+                    backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yomapp/View/test_easy_view.dart';
+import 'package:yomapp/View/test_medium_view.dart';
 import 'package:yomapp/View/menu_test_view.dart';
 
 class ScoreView extends StatefulWidget {
@@ -72,6 +73,9 @@ class _ScoreViewState extends State<ScoreView> {
                           if (widget.difficulte == "easy") {
                             route = MaterialPageRoute(
                                 builder: (context) => const EasyTest());
+                          } else if (widget.difficulte == "medium") {
+                            route = MaterialPageRoute(
+                                builder: (context) => const MediumTest());
                           }else{
                             route = MaterialPageRoute(
                                 builder: (context) => const EasyTest());

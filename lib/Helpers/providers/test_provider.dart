@@ -3,9 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:yomapp/Helpers/Enum/alphabet_enum.dart';
 
 class TestProvider extends ChangeNotifier {
-
   Map<String, String> _randomLetter() {
-    List<String> sounds = ["A", "I", "U", "E", "O", "N", "G", "Z", "D", "B", "P"];
+    List<String> sounds = [
+      "A",
+      "I",
+      "U",
+      "E",
+      "O",
+      "N",
+      "G",
+      "Z",
+      "D",
+      "B",
+      "P"
+    ];
     int random = Random().nextInt(sounds.length);
     String randomSound = sounds[random];
     random = Random().nextInt(2);
@@ -24,7 +35,19 @@ class TestProvider extends ChangeNotifier {
 
   String _alphabetFromSound(String sound) {
     bool isHiragana = false;
-    List<String> sounds = ["A", "I", "U", "E", "O", "N", "G", "Z", "D", "B", "P"];
+    List<String> sounds = [
+      "A",
+      "I",
+      "U",
+      "E",
+      "O",
+      "N",
+      "G",
+      "Z",
+      "D",
+      "B",
+      "P"
+    ];
     for (int i = 0; i < sounds.length; i++) {
       if (AlphabetEnum.getEnumHiragana(sounds[i]).containsValue(sound)) {
         isHiragana = true;
@@ -35,6 +58,30 @@ class TestProvider extends ChangeNotifier {
     } else {
       return "Katakana";
     }
+  }
+
+  String _getSoundFormLetter(String letter) {
+    List<String> sounds = [
+      "A",
+      "I",
+      "U",
+      "E",
+      "O",
+      "N",
+      "G",
+      "Z",
+      "D",
+      "B",
+      "P"
+    ];
+    for (int i = 0; i < sounds.length; i++) {
+      if (AlphabetEnum.getEnumHiragana(sounds[i]).containsKey(letter)) {
+        return AlphabetEnum.getEnumHiragana(sounds[i])["Son"]!;
+      } else if (AlphabetEnum.getEnumKatakana(sounds[i]).containsKey(letter)) {
+        return AlphabetEnum.getEnumKatakana(sounds[i])["Son"]!;
+      }
+    }
+    return "";
   }
 
   Map<String, dynamic> _easyTestGenerator() {
@@ -66,7 +113,7 @@ class TestProvider extends ChangeNotifier {
         "answers": answers,
         "correctAnswer": letterToFound.keys.first,
       };
-    }else if (question == questions[1]) {
+    } else if (question == questions[1]) {
       List<String> answers = [];
       for (int i = 0; i < 3; i++) {
         Map<String, String> letter = _randomLetter();
@@ -88,14 +135,9 @@ class TestProvider extends ChangeNotifier {
         "answers": answers,
         "correctAnswer": letterToFound.values.first,
       };
-    } else if(question == questions[2]){
+    } else if (question == questions[2]) {
       String alphabet = _alphabetFromSound(letterToFound.values.first);
-      List<String> answers = [
-        "Hiragana",
-        "Katakana",
-        "Kanji",
-        "Romaji"
-      ];
+      List<String> answers = ["Hiragana", "Katakana", "Kanji", "Romaji"];
       answers.shuffle();
       return {
         "question": question,
@@ -106,6 +148,55 @@ class TestProvider extends ChangeNotifier {
     } else {
       return {};
     }
+  }
+
+  Map<String, dynamic> _mediumTestGenerator() {
+    List<String> questions = [
+      "De quel syllabe s'agit-il ?",
+      "De quelle alphabet s'agit-il ?"
+    ];
+    int random = Random().nextInt(questions.length);
+    String question = questions[random];
+    Map<String, String> letterToFound = _randomLetter();
+    if (question == questions[0]) {
+      List<String> answers = [];
+      for (int i = 0; i < 3; i++) {
+        Map<String, String> letter = _randomLetter();
+        if (letter.keys.first == letterToFound.keys.first) {
+          i--;
+        } else if (answers.contains(letter.keys.first)) {
+          i--;
+        } else {
+          answers.add(letter.keys.first);
+        }
+      }
+      answers.add(letterToFound.keys.first);
+      answers.shuffle();
+      return {
+        "question": question,
+        "sound": letterToFound.values.first,
+        "answers": answers,
+        "correctAnswer": letterToFound.keys.first,
+        "hint": _getSoundFormLetter(letterToFound.keys.first)
+      };
+    } else if (question == questions[1]) {
+      String alphabet = _alphabetFromSound(letterToFound.values.first);
+      List<String> answers = ["Hiragana", "Katakana", "Kanji", "Romaji"];
+      answers.shuffle();
+      return {
+        "question": question,
+        "sound": letterToFound.values.first,
+        "answers": answers,
+        "correctAnswer": alphabet,
+        "hint": alphabet
+      };
+    } else {
+      return {};
+    }
+  }
+
+  Map<String,dynamic> mediumTestGenerator(){
+    return _mediumTestGenerator();
   }
 
   Map<String, dynamic> easyTestGenerator() {
