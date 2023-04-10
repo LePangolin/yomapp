@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static const Color _lightPrimaryColor = Colors.red;
+  static const Color _lightPrimaryColor = Color.fromARGB(255, 228, 50, 55);
   static const Color _lightSecondaryColor = Color(0xFFFEF9EB);
-  static const Color _lightAccentColor = Colors.red;
+  static const Color _lightAccentColor = Color.fromARGB(255, 228, 50, 55);
   static const Color _lightTextColor = Color(0xFF212121);
 
   static const Color _darkPrimaryColor = Color(0xFF121212);
