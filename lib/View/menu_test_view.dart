@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yomapp/View/test_easy_view.dart';
+import 'package:yomapp/View/acceuil_view.dart';
 
 class MenuTest extends StatefulWidget {
   const MenuTest({super.key});
@@ -15,6 +16,15 @@ class _MenuTestState extends State<MenuTest> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PageAcceuil()));
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
         title: Container(
           margin:
               EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04),

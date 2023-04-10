@@ -211,7 +211,7 @@ class _EasyTestState extends State<EasyTest> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ScoreView(score: score)
+                builder: (context) => ScoreView(score: score, difficulte: "easy")
             )
         );
       });

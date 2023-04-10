@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:yomapp/View/acceuil_view.dart';
+import 'package:yomapp/View/test_easy_view.dart';
+import 'package:yomapp/View/menu_test_view.dart';
 
 class ScoreView extends StatefulWidget {
   final int score;
-  const ScoreView({super.key, required this.score});
+  final String difficulte;
+
+  const ScoreView({super.key, required this.score, required this.difficulte});
 
   @override
   State<ScoreView> createState() => _ScoreViewState();
@@ -27,7 +30,7 @@ class _ScoreViewState extends State<ScoreView> {
             decoration: const BoxDecoration(
               color: Colors.white,
             ),
-            height: 350,
+            height: 320,
             width: 300,
             child: Column(
               children: [
@@ -57,26 +60,60 @@ class _ScoreViewState extends State<ScoreView> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PageAcceuil()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.08),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          MaterialPageRoute route;
+                          if (widget.difficulte == "easy") {
+                            route = MaterialPageRoute(
+                                builder: (context) => const EasyTest());
+                          }else{
+                            route = MaterialPageRoute(
+                                builder: (context) => const EasyTest());
+                          }
+                          Navigator.push(
+                            context,
+                            route,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(128, 35),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                        ),
+                        child: const Text("Réessayer"),
                       ),
                     ),
-                    child: const Text("Retour au menu"),
-                  ),
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.08),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MenuTest()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                        ),
+                        child: const Text("Retour au menu"),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             )),
