@@ -4,7 +4,7 @@ Une application mobile pour apprendre a lire les charactères japonais
 
 # Stade de développement
 
-Toujours en développement 
+Toujours en développement <br>
 En cours :
 
 - Rectification test niveau moyen
